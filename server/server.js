@@ -45,8 +45,15 @@ io.on('connection', (socket) => {
     createAt: 123
   });
 
-  socket.on('createMessage', (newMessage) => {
-    console.log('New message to create:', newMessage);
+  socket.on('createMessage', (message) => {
+    console.log('New message to create:', message);
+    //broadcasting events
+    io.emit('newMessage', {
+      from: message.from,
+      text: message.text,
+      createdAt: new Date().getTime()
+    });
+
   });
 
   socket.on('disconnect', () => {
